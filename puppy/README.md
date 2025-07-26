@@ -6,7 +6,7 @@
 * It can be renamed.
 
 ## Screenshots
-![main](ss_main.png)
-![bark](ss_bark.png)
-![rename](ss_rename.png)
-![renamed](ss_renamed.png)
+![main](ss/main.png)
+![bark](ss/bark.png)
+![rename](ss/rename.png)
+![renamed](ss/renamed.png)
