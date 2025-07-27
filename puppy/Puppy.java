@@ -13,15 +13,13 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class Puppy {
-
-	// 12:20 started	
-
 	static JFrame frame;
 	static JLabel label;
 	static ImageIcon icon = new ImageIcon("puppy.png");
 	static String name = "Puppy";
 
 	public static void main(String[] args) {
+		System.setProperty("java.home", ".");
 		frame = new JFrame();
 		frame.setTitle("Puppy Program");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,7 +86,7 @@ public class Puppy {
 		label.setHorizontalTextPosition(JLabel.CENTER);
 		label.setVerticalAlignment(JLabel.CENTER);
 		label.setHorizontalAlignment(JLabel.CENTER);
-		label.setFont(new Font("Comic Sans", Font.BOLD, 30));
+		label.setFont(new Font("MV Boli", Font.BOLD, 30));
 		label.setForeground(Color.blue);
 		label.setBackground(Color.yellow);
 		label.setOpaque(true);
