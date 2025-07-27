@@ -1,7 +1,7 @@
 # Maze Game
 ## Features
-* Playable
-* Auto-solve
-* Regenerate the maze
+* Procedurally generated maze
+* Playable using WASD or Arrow keys
+* Auto-solver
 ## Demo
 ![demo](demo.gif)
