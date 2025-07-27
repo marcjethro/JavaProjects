@@ -90,7 +90,7 @@ public class Maze {
 		reset_btn.setFocusable(false);
 		reset_btn.addActionListener((e) -> {
 			if (player != null) {
-				maze_panel_grid[player.x][player.y].getComponents()[0].setVisible(false);
+				maze_panel_grid[player.x()][player.y()].getComponents()[0].setVisible(false);
 				player = null;
 			}
 			maze_grid = MazeGen.generateMazeGrid(R, C);
@@ -101,7 +101,7 @@ public class Maze {
 		play_btn.setFocusable(false);
 		play_btn.addActionListener((e) -> {
 			player = new MazeGen.coord(0, 0);
-			maze_panel_grid[player.x][player.y].getComponents()[0].setVisible(true);
+			maze_panel_grid[player.x()][player.y()].getComponents()[0].setVisible(true);
 		});
 
 		JButton solve_btn = new JButton("Solve");
@@ -135,32 +135,32 @@ public class Maze {
 		MazeGen.coord newCoord;
 		switch (direction) {
 			case 87, 38:
-				newCoord = new MazeGen.coord(player.x - 1, player.y);
+				newCoord = new MazeGen.coord(player.x() - 1, player.y());
 				break;
 			case 83, 40:
-				newCoord = new MazeGen.coord(player.x + 1, player.y);
+				newCoord = new MazeGen.coord(player.x() + 1, player.y());
 				break;
 			case 65, 37:
-				newCoord = new MazeGen.coord(player.x, player.y - 1);
+				newCoord = new MazeGen.coord(player.x(), player.y() - 1);
 				break;
 			case 68, 39:
-				newCoord = new MazeGen.coord(player.x, player.y + 1);
+				newCoord = new MazeGen.coord(player.x(), player.y() + 1);
 				break;
 			default:
 				newCoord = player;
 		}
 
-		if (newCoord.x >= maze_grid.length || newCoord.x < 0) return;
-		if (newCoord.y >= maze_grid[0].length || newCoord.y < 0) return;
-		if (maze_grid[newCoord.x][newCoord.y] == 0) return;
+		if (newCoord.x() >= maze_grid.length || newCoord.x() < 0) return;
+		if (newCoord.y() >= maze_grid[0].length || newCoord.y() < 0) return;
+		if (maze_grid[newCoord.x()][newCoord.y()] == 0) return;
 
-		maze_panel_grid[player.x][player.y].getComponents()[0].setVisible(false);
-		maze_panel_grid[newCoord.x][newCoord.y].getComponents()[0].setVisible(true);
+		maze_panel_grid[player.x()][player.y()].getComponents()[0].setVisible(false);
+		maze_panel_grid[newCoord.x()][newCoord.y()].getComponents()[0].setVisible(true);
 		player = newCoord;
 
-		if (player.x == R - 1 && player.y == C - 1) {
+		if (player.x() == R - 1 && player.y() == C - 1) {
 			JOptionPane.showMessageDialog(null, "You Win!");
-			maze_panel_grid[player.x][player.y].getComponents()[0].setVisible(false);
+			maze_panel_grid[player.x()][player.y()].getComponents()[0].setVisible(false);
 			player = null;
 		}
 	}

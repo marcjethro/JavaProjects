@@ -22,22 +22,22 @@ public class MazeGen {
 			List<coord> possible = new ArrayList<>();
 			coord cur = coords.peek();
 
-			maze_grid[cur.x][cur.y] = 1;
+			maze_grid[cur.x()][cur.y()] = 1;
 
-			if (cur.x - 2 >= 0 && maze_grid[cur.x - 2][cur.y] != 1) {
-				possible.add(new coord(cur.x - 2, cur.y));
+			if (cur.x() - 2 >= 0 && maze_grid[cur.x() - 2][cur.y()] != 1) {
+				possible.add(new coord(cur.x() - 2, cur.y()));
 			}
 
-			if (cur.x + 2 < X && maze_grid[cur.x + 2][cur.y] != 1) {
-				possible.add(new coord(cur.x + 2, cur.y));
+			if (cur.x() + 2 < X && maze_grid[cur.x() + 2][cur.y()] != 1) {
+				possible.add(new coord(cur.x() + 2, cur.y()));
 			}
 
-			if (cur.y - 2 >= 0 && maze_grid[cur.x][cur.y - 2] != 1) {
-				possible.add(new coord(cur.x, cur.y - 2));
+			if (cur.y() - 2 >= 0 && maze_grid[cur.x()][cur.y() - 2] != 1) {
+				possible.add(new coord(cur.x(), cur.y() - 2));
 			}
 
-			if (cur.y + 2 < Y && maze_grid[cur.x][cur.y + 2] != 1) {
-				possible.add(new coord(cur.x, cur.y + 2));
+			if (cur.y() + 2 < Y && maze_grid[cur.x()][cur.y() + 2] != 1) {
+				possible.add(new coord(cur.x(), cur.y() + 2));
 			}
 
 			if (possible.size() == 0) {
@@ -47,7 +47,7 @@ public class MazeGen {
 				int randomIndex = random.nextInt(possible.size());
 				coord randomCoord = possible.get(randomIndex);
 				coord between = cur.getBetween(randomCoord);
-				maze_grid[between.x][between.y] = 1;
+				maze_grid[between.x()][between.y()] = 1;
 				coords.push(randomCoord);
 			}
 		}
@@ -55,28 +55,15 @@ public class MazeGen {
 	}
 
 
-	public static class coord {
-		int x;
-		int y;
-
-		coord(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-
+	public static record coord (int x, int y) {
 		coord getBetween(coord next) {
-			int xDif = next.x - this.x;
-			int yDif = next.y - this.y;
+			int xDif = next.x() - this.x();
+			int yDif = next.y() - this.y();
 			if (xDif == 0) {
 				return new coord(this.x, this.y + yDif/2);
 			} else {
 				return new coord(this.x + xDif/2, this.y);
 			}
-		}
-
-		@Override
-		public String toString() {
-			return this.x + ", " + this.y;
 		}
 	}
 }
