@@ -18,7 +18,7 @@ public class Puppy {
 
 	static JFrame frame;
 	static JLabel label;
-	static ImageIcon icon = new ImageIcon(new ImageIcon("puppy.png").getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT));
+	static ImageIcon icon = new ImageIcon("puppy.png");
 	static String name = "Puppy";
 
 	public static void main(String[] args) {
@@ -27,6 +27,7 @@ public class Puppy {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setBackground(Color.magenta);
 		frame.setLayout(new BorderLayout(10, 10));
+		frame.setIconImage(icon.getImage());
 
 		addLabel();
 		addPanels();
@@ -82,8 +83,7 @@ public class Puppy {
 	static void addLabel() {
 		label = new JLabel();
 		label.setText("This is puppy");
-		label.setIcon(icon);
-		label.setIconTextGap(-20);
+		label.setIcon(new ImageIcon(icon.getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
 		label.setVerticalTextPosition(JLabel.TOP);
 		label.setHorizontalTextPosition(JLabel.CENTER);
 		label.setVerticalAlignment(JLabel.CENTER);

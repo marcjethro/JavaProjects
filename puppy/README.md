@@ -5,8 +5,5 @@
 * It can bark.
 * It can be renamed.
 
-## Screenshots
-![main](ss/main.png)
-![bark](ss/bark.png)
-![rename](ss/rename.png)
-![renamed](ss/renamed.png)
+## Demo
+![demo](demo.gif)
