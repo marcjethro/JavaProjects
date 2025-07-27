@@ -24,6 +24,7 @@ public class Maze {
 	static int[][] maze_grid;
 
 	public static void main(String[] args) {
+		System.setProperty("java.home", ".");
 		maze_panel_grid = new JPanel[R][C];
 
 		JFrame frame = new JFrame();
