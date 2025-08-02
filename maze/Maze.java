@@ -1,18 +1,11 @@
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
+import javax.swing.*;
+import java.awt.event.*;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class Maze {
 	static int R = 13;

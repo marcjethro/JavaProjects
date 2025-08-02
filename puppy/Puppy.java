@@ -1,10 +1,4 @@
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
-import javax.swing.BorderFactory;
+import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.Dimension;
 import java.awt.Image;

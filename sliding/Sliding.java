@@ -1,8 +1,5 @@
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.BorderFactory;
+import javax.swing.*;
+import java.awt.event.*;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -12,8 +9,6 @@ import java.awt.Dimension;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class Sliding {
 	static final int GRID_SIDE = 3;
