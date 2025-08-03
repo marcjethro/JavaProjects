@@ -19,9 +19,14 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
+import java.net.URL;
+import java.net.URI;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+
 public class Sliding {
 	static final int GRID_DIMENSION = 3;
-	static final int GRID_SIDE = 400;
+	static final int GRID_SIDE = 500;
 	static List<Tile> tiles;
 	static JPanel puzzle_pnl;
 	static Tile moveTile;
@@ -41,6 +46,22 @@ public class Sliding {
 		control_pnl.setPreferredSize(new Dimension(0, 40));
 		control_pnl.setLayout(new FlowLayout(FlowLayout.LEADING));
 
+		JButton url_btn = new JButton("URL");
+		url_btn.setFocusable(false);
+		url_btn.addActionListener((e) -> {
+			try {
+				String url = JOptionPane.showInputDialog(frame, "Enter Image URL:");
+				URI imageURI = new URI(url);
+				URL imageURL = imageURI.toURL();
+				Image image = ImageIO.read(imageURL);
+				loadImage(image);
+				renderTiles();
+			} catch (URISyntaxException | IOException exc) {
+				exc.printStackTrace();
+				JOptionPane.showMessageDialog(frame, "Can't load URL!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		});
+
 		JButton open_btn = new JButton("OPEN");
 		open_btn.setFocusable(false);
 		open_btn.addActionListener((e) -> {
@@ -51,8 +72,13 @@ public class Sliding {
 			int returnVal = chooser.showOpenDialog(frame);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File imageFile = chooser.getSelectedFile();
-				loadImage(imageFile);
-				renderTiles();
+				try {
+					Image image = ImageIO.read(imageFile);
+					loadImage(image);
+					renderTiles();
+				} catch (IOException exc) {
+					exc.printStackTrace();
+				}
 			}
 		});
 
@@ -100,6 +126,7 @@ public class Sliding {
 			renderTiles();
 		});
 
+		control_pnl.add(url_btn);
 		control_pnl.add(open_btn);
 		control_pnl.add(shuffle_btn);
 		control_pnl.add(reset_btn);
@@ -113,10 +140,10 @@ public class Sliding {
 		tiles = new ArrayList<>();
 
 		for (int r = 0; r <= GRID_DIMENSION-1; r++) {
-		for (int c = 0; c <= GRID_DIMENSION-1; c++) {
-			Tile tile = new Tile(Integer.toString(1 + (r*GRID_DIMENSION) + c), r, c);
-			tiles.add(tile);
-		}
+			for (int c = 0; c <= GRID_DIMENSION-1; c++) {
+				Tile tile = new Tile(Integer.toString(1 + (r*GRID_DIMENSION) + c), r, c);
+				tiles.add(tile);
+			}
 		}
 
 		renderTiles();
@@ -146,17 +173,17 @@ public class Sliding {
 		}
 		switch (direction) {
 			case 'a':
-				moveTile.swap(moveSet[0]);
-				break;
+			moveTile.swap(moveSet[0]);
+			break;
 			case 'w':
-				moveTile.swap(moveSet[1]);
-				break;
+			moveTile.swap(moveSet[1]);
+			break;
 			case 's':
-				moveTile.swap(moveSet[2]);
-				break;
+			moveTile.swap(moveSet[2]);
+			break;
 			case 'd':
-				moveTile.swap(moveSet[3]);
-				break;
+			moveTile.swap(moveSet[3]);
+			break;
 		}
 	}
 
@@ -182,35 +209,30 @@ public class Sliding {
 		}
 	}
 
-	static void loadImage(File imageFile) {
-		try {
-			Image originalImage = ImageIO.read(imageFile);
-			Image scaledImage = originalImage.getScaledInstance(GRID_SIDE, GRID_SIDE, Image.SCALE_DEFAULT);
-			BufferedImage scaledBufferedImage = new BufferedImage(GRID_SIDE, GRID_SIDE, BufferedImage.TYPE_INT_ARGB);
-			int CELL_SIDE = GRID_SIDE/GRID_DIMENSION;
-			scaledBufferedImage.getGraphics().drawImage(scaledImage, 0, 0, null);
-			for (Tile tile : tiles) {
-				BufferedImage croppedImage = scaledBufferedImage.getSubimage(tile.origY*CELL_SIDE, tile.origX*CELL_SIDE, CELL_SIDE, CELL_SIDE);
-				ImageIcon icon = new ImageIcon(croppedImage);
-				tile.icon = icon;
-				tile.setIcon(icon);
-			}
-		} catch (IOException exc) {
-			exc.printStackTrace();
+	static void loadImage(Image image) {
+		Image scaledImage = image.getScaledInstance(GRID_SIDE, GRID_SIDE, Image.SCALE_DEFAULT);
+		BufferedImage scaledBufferedImage = new BufferedImage(GRID_SIDE, GRID_SIDE, BufferedImage.TYPE_INT_ARGB);
+		int CELL_SIDE = GRID_SIDE/GRID_DIMENSION;
+		scaledBufferedImage.getGraphics().drawImage(scaledImage, 0, 0, null);
+		for (Tile tile : tiles) {
+			BufferedImage croppedImage = scaledBufferedImage.getSubimage(tile.origY*CELL_SIDE, tile.origX*CELL_SIDE, CELL_SIDE, CELL_SIDE);
+			ImageIcon icon = new ImageIcon(croppedImage);
+			tile.icon = icon;
+			tile.setIcon(icon);
 		}
 	}
 
 	static void renderTiles() {
 		puzzle_pnl.removeAll();
 		for (int r = 0; r <= GRID_DIMENSION-1; r++) {
-		for (int c = 0; c <= GRID_DIMENSION-1; c++) {
-			for (Tile tile : tiles) {
-				if (tile.x == r && tile.y == c) {
-					puzzle_pnl.add(tile);
+			for (int c = 0; c <= GRID_DIMENSION-1; c++) {
+				for (Tile tile : tiles) {
+					if (tile.x == r && tile.y == c) {
+						puzzle_pnl.add(tile);
+					}
+
 				}
-			
 			}
-		}
 		}
 
 		moveTile = tiles.get(tiles.size()-1);
