@@ -1,9 +1,9 @@
 # Sliding Puzzle
 
 ## Features
-* Play with WASD
+* Open an image
 * Shuffle tiles randomly
-* Solve/reset the puzzle
+* Play with WASD
 
 ## Demo
 ![demo](demo.gif)
